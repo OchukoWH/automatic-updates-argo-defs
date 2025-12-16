@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vprofile-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: vprofile
+    server: https://kubernetes.default.svc
+  project: vprofile-project
+  source:
+    path: vprofile
+    repoURL: https://github.com/OchukoWH/argo-project-defs.git
+    targetRevision: amazon-eks
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
