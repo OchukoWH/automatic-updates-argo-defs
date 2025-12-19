@@ -23,6 +23,10 @@ This project demonstrates GitOps best practices for automated Kubernetes deploym
 └──────┬──────┘
        │
 ┌──────▼──────────┐
+│  VProfile Web   │  (NGINX Reverse Proxy - Port 80)
+└──────┬──────────┘
+       │
+┌──────▼──────────┐
 │  VProfile App   │  (Java/Tomcat - Port 8080)
 └────┬───┬───┬────┘
      │   │   │
@@ -33,6 +37,7 @@ This project demonstrates GitOps best practices for automated Kubernetes deploym
 ```
 
 **Components:**
+- **VProfile Web**: NGINX reverse proxy with auto-scaling (HPA)
 - **VProfile App**: Java application with auto-scaling (HPA)
 - **MySQL**: Persistent database with 3Gi storage
 - **Memcached**: Application caching layer
@@ -89,6 +94,8 @@ argo-project-defs/
 └── vprofile/                  # Kubernetes manifests
     ├── appdeploy.yaml         # Application deployment
     ├── appservice.yaml
+    ├── webdeploy.yaml         # Web/NGINX reverse proxy deployment
+    ├── webservice.yaml
     ├── appingress.yaml        # NGINX ingress with SSL
     ├── dbdeploy.yaml          # MySQL deployment
     ├── dbservice.yaml

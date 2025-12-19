@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vproweb
+  namespace: vprofile
+  labels:
+    app: vproweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproweb
+  template:
+    metadata:
+      labels:
+        app: vproweb
+    spec:
+      containers:
+      - name: vproweb
+        image: ochukowh/vprofileweb:latest
+        imagePullPolicy: Always
+        ports:
+        - name: vproweb-port
+          containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+      initContainers:
+      - name: init-vproapp
+        image: busybox
+        command: ['sh', '-c', 'until nslookup vproapp-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vproapp; sleep 2; done;']
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "10m"
+          limits:
+            memory: "64Mi"
+            cpu: "50m"
+

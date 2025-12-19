@@ -17,9 +17,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: vproapp-service
+                name: vproweb-service
                 port:
-                  number: 8080
+                  number: 80
   tls:
     - hosts:
         - vprofile.ochukowhoro.xyz
