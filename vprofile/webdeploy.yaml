@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: vproweb
-        image: ochukowh/vprofileweb:latest
+        image: ochukowh/vprofileweb3:b0c8820
         imagePullPolicy: Always
         ports:
         - name: vproweb-port
